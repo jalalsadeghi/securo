@@ -1,7 +1,7 @@
 # Docker files
 *.log
 *.env
-
+.env
 # Node.js
 node_modules
 npm-debug.log
