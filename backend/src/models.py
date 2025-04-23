@@ -24,3 +24,17 @@ class Agent(Base):
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
 
     user: Mapped[User] = relationship("User", back_populates="agents")
+
+class Alert(Base):
+    __tablename__ = "alerts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
+    agent_id: Mapped[int] = mapped_column(Integer, ForeignKey("agents.id"))
+    severity: Mapped[int] = mapped_column(Integer)
+    alert_type: Mapped[str] = mapped_column(String(255))
+    message: Mapped[str] = mapped_column(String)
+    created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
+
+    user: Mapped[User] = relationship("User")
+    agent: Mapped[Agent] = relationship("Agent")

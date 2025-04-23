@@ -25,6 +25,8 @@ services:
       DATABASE_URL: ${DATABASE_URL}
     ports:
       - "8000:8000"
+    volumes:
+      - wazuh-logs:/var/ossec/logs
 
   frontend:
     build: ./frontend
@@ -34,6 +36,30 @@ services:
       - backend
     ports:
       - "3000:3000"
+    
+  wazuh-manager:
+    image: wazuh/wazuh-manager:4.11.2
+    hostname: wazuh-manager
+    ports:
+      - "1514:1514/udp"
+      - "1515:1515"
+      - "55000:55000"
+    volumes:
+      - wazuh-logs:/var/ossec/logs
+      - ./wazuh-suricata/config/wazuh/ossec.conf:/var/ossec/etc/ossec.conf
+    restart: always
+
+  suricata:
+    image: jasonish/suricata:latest
+    command: -i eth0
+    volumes:
+      - ./wazuh-suricata/config/suricata/suricata.yaml:/etc/suricata/suricata.yaml
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: always
 
 volumes:
   cs-db-data:
+  wazuh-logs:

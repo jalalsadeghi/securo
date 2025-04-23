@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.models import Base
 from src.database import engine
-from src.routers import users, agents
+from src.routers import users, agents, alerts
 
 app = FastAPI(title="Cloud Security Platform API")
 
@@ -17,6 +17,7 @@ app.add_middleware(
 
 app.include_router(users.router)
 app.include_router(agents.router)
+app.include_router(alerts.router)
 
 @app.on_event("startup")
 async def startup():
@@ -26,3 +27,5 @@ async def startup():
 @app.get("/")
 async def root():
     return {"message": "Cloud Security Backend is running!"}
+
+
