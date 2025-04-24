@@ -1,3 +1,9 @@
+import axios from "axios";
+
+export const api = axios.create({
+  baseURL: "http://localhost:8000"
+});
+
 export const registerUser = async (email: string, password: string) => {
   const response = await fetch("http://localhost:8000/users/register", {
     method: "POST",
