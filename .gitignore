@@ -2,6 +2,8 @@
 *.log
 *.env
 .env
+.venv
+venv
 # Node.js
 node_modules
 npm-debug.log
