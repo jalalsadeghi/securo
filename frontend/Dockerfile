@@ -2,11 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY ./frontend/src/package.json ./frontend/src/package-lock.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY ./frontend/src ./
+COPY src ./
 
 RUN npm run build
 
