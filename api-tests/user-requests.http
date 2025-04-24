@@ -1,0 +1,13 @@
+### User Registration
+POST http://localhost:8000/users/register
+Content-Type: application/json
+
+{
+    "first_name": "Johns",
+    "family_name": "Does",
+    "email": "joh0@example.com",
+    "phone_number": "+123456789",
+    "password": "123",
+    "company": "Example Inc.",
+    "country": "United States"
+}
